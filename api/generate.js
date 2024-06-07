@@ -28,7 +28,6 @@ module.exports = async (req, res) => {
         }
 
         const data = await response.json();
-		console.log(data); // debug logging
         res.status(200).json(data);
     } catch (error) {
         res.status(500).json({ error: error.message });
