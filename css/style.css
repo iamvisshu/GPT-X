@@ -6,7 +6,7 @@ body {
 }
 
 .chat-container {
-    max-width: 400px;
+    max-width: 400px; /* Adjust maximum width for mobile */
     margin: 50px auto;
     background-color: #fff;
     border-radius: 8px;
@@ -63,5 +63,12 @@ button {
 
     textarea {
         width: calc(100% - 20px); /* Adjusted width for smaller screens */
+    }
+}
+
+/* For desktop */
+@media only screen and (min-width: 601px) {
+    .chat-container {
+        max-width: 800px; /* Adjust maximum width for desktop */
     }
 }
