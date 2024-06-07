@@ -1,8 +1,11 @@
 const fetch = require('node-fetch');
 
+const HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models";
+
+const MODEL = "bigscience/bloom"; // You can replace this with any other model
+
 module.exports = async (req, res) => {
-    const API_URL = "https://api-inference.huggingface.co/models/gpt2";
-    const API_KEY = process.env.HUGGINGFACE_API_KEY;  // Use environment variable
+    const API_KEY = process.env.HUGGINGFACE_API_KEY;
 
     if (req.method !== 'POST') {
         return res.status(405).json({ message: 'Only POST requests are allowed' });
@@ -11,7 +14,7 @@ module.exports = async (req, res) => {
     const { prompt } = req.body;
 
     try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(`${HUGGINGFACE_API_URL}/${MODEL}`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${API_KEY}`,
