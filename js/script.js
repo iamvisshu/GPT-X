@@ -3,7 +3,7 @@ async function generateResponse() {
     if (prompt !== '') {
         appendMessage('user', prompt);
         try {
-            const response = await fetch('/api/generate', {  // Assuming your API endpoint is relative
+            const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -17,7 +17,7 @@ async function generateResponse() {
 
             const data = await response.json();
             const generatedText = data[0].generated_text;
-            appendMessage('bot', generatedText);
+            appendMessage('bot', generatedText); // No need to trim here
         } catch (error) {
             console.error('Error:', error);
             appendMessage('bot', 'Sorry, something went wrong.');
