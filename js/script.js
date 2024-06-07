@@ -2,6 +2,7 @@ async function generateResponse() {
     const prompt = document.getElementById('prompt').value.trim();
     if (prompt !== '') {
         appendMessage('user', prompt);
+        document.getElementById('prompt').value = ''; // Clear the text area after sending the prompt
         try {
             const response = await fetch('/api/generate', {
                 method: 'POST',
