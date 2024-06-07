@@ -4,36 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPT-X</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        #response {
-            margin-top: 20px;
-            white-space: pre-wrap;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>GPT-X</h1>
-    <textarea id="prompt" rows="4" cols="50" placeholder="Type your prompt here..."></textarea><br>
-    <button onclick="generateResponse()">Generate Response</button>
-    <p id="response"></p>
+    <div class="chat-container">
+        <h1>GPT-X</h1>
+        <div class="chat-box" id="chat-box"></div>
+        <textarea id="prompt" rows="4" placeholder="Type your prompt here..."></textarea>
+        <button onclick="generateResponse()">Generate Response</button>
+    </div>
 
-    <script>
-        async function generateResponse() {
-            const prompt = document.getElementById('prompt').value;
-            const response = await fetch('https://gpt-x-sigma.vercel.app/api/generate', {  // Need to replace with my Vercel URL
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ prompt })
-            });
-
-            const data = await response.json();
-            document.getElementById('response').innerText = data[0].generated_text;
-        }
-    </script>
+    <script src="js/script.js"></script>
 </body>
 </html>
