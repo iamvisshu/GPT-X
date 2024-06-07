@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 const HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models";
 
-const MODEL = "EleutherAI/gpt-neo-2.7B"; // You can replace this with any other model
+const MODEL = "openai-community/gpt2-large"; // You can replace this with any other model
 
 module.exports = async (req, res) => {
     const API_KEY = process.env.HUGGINGFACE_API_KEY;
@@ -28,6 +28,7 @@ module.exports = async (req, res) => {
         }
 
         const data = await response.json();
+		console.log(JSON.stringify(response)); //debug logging
 		console.log("Response length:", JSON.stringify(data).length); //debug logging
         res.status(200).json(data);
     } catch (error) {

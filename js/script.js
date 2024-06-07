@@ -27,7 +27,7 @@ async function generateResponse() {
 }
 
 function appendMessage(sender, message) {
-    console.log("Message:", message); // Debugging
+    console.log("Message:", message); // debug logging
     const chatBox = document.getElementById('chat-box');
     const messageElement = document.createElement('div');
     messageElement.classList.add('chat-message', sender);
