@@ -27,11 +27,15 @@ async function generateResponse() {
 }
 
 function appendMessage(sender, message) {
+    console.log("Message:", message); // Debugging
     const chatBox = document.getElementById('chat-box');
     const messageElement = document.createElement('div');
     messageElement.classList.add('chat-message', sender);
-    messageElement.innerHTML = `<span>${message}</span>`;
+    const messageSpan = document.createElement('span');
+    messageSpan.textContent = message;
+    messageElement.appendChild(messageSpan);
     chatBox.appendChild(messageElement);
     // Scroll to bottom
     chatBox.scrollTop = chatBox.scrollHeight;
 }
+
