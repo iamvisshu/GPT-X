@@ -16,6 +16,7 @@ async function generateResponse() {
             }
 
             const data = await response.json();
+			console.log("script res length:", JSON.stringify(data).length); // debug loggings
             const generatedText = data[0].generated_text;
             appendMessage('bot', generatedText); // No need to trim here
         } catch (error) {
