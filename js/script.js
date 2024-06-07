@@ -16,15 +16,24 @@ async function generateResponse() {
             }
 
             const data = await response.json();
-			console.log("Script Response length:", JSON.stringify(data)); // debug loggings
-			console.log("Script Response length:", JSON.stringify(data).length); // debug loggings
-            const generatedText = data[0].generated_text;
-            appendMessage('bot', generatedText); // No need to trim here
+            console.log("Script Response:", JSON.stringify(data)); // debug loggings
+            console.log("Script Response length:", JSON.stringify(data).length); // debug loggings
+            const generatedText = formatResponse(data[0].generated_text);
+            appendMessage('bot', generatedText);
         } catch (error) {
             console.error('Error:', error);
             appendMessage('bot', 'Sorry, something went wrong.');
         }
     }
+}
+
+function formatResponse(text) {
+    // Simple replacements for bold and italic
+    let formattedText = text
+        .replace(/_([^_]+)_/g, '<i>$1</i>') // Italics with _text_
+        .replace(/\*([^*]+)\*/g, '<b>$1</b>') // Bold with *text*
+        .replace(/\n/g, '<br>'); // New lines to <br>
+    return formattedText;
 }
 
 function appendMessage(sender, message) {
@@ -33,10 +42,9 @@ function appendMessage(sender, message) {
     const messageElement = document.createElement('div');
     messageElement.classList.add('chat-message', sender);
     const messageSpan = document.createElement('span');
-    messageSpan.textContent = message;
+    messageSpan.innerHTML = message; // Used innerHTML to allow formatting
     messageElement.appendChild(messageSpan);
     chatBox.appendChild(messageElement);
     // Scroll to bottom
     chatBox.scrollTop = chatBox.scrollHeight;
 }
-
