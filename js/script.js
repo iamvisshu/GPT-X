@@ -20,6 +20,11 @@ async function generateResponse() {
             console.log("Script Response:", JSON.stringify(data)); // debug loggings
             console.log("Script Response length:", JSON.stringify(data).length); // debug loggings
             const generatedText = formatResponse(data[0].generated_text);
+            //Trim input from generated output response
+            if (generatedText.startsWith(inputText))
+            {
+                generatedText = generatedText.substring(inputText.length).trim();
+            }
             appendMessage('bot', generatedText);
         } catch (error) {
             console.error('Error:', error);
