@@ -29,8 +29,8 @@ async function generateResponse() {
 }
 
 function formatResponse(text, prompt) {
-    // Remove the prompt from the beginning of the text
-    let trimmedText = text.startsWith(prompt) ? text.slice(prompt.length) : text;
+    // Remove the prompt and any leading new lines from the beginning of the text
+    let trimmedText = text.startsWith(prompt) ? text.slice(prompt.length).trimStart() : text.trimStart();
 
     // Simple replacements for bold and italic
     let formattedText = trimmedText
