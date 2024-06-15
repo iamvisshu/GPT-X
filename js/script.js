@@ -19,7 +19,7 @@ async function generateResponse() {
             const data = await response.json();
             console.log("Script Response:", JSON.stringify(data)); // debug loggings
             console.log("Script Response length:", JSON.stringify(data).length); // debug loggings
-            const generatedText = formatResponse(data[0].generated_text);
+            const generatedText = formatResponse(data[0].generated_text, prompt);
             appendMessage('bot', generatedText);
         } catch (error) {
             console.error('Error:', error);
@@ -28,9 +28,12 @@ async function generateResponse() {
     }
 }
 
-function formatResponse(text) {
+function formatResponse(text, prompt) {
+    // Remove the prompt from the beginning of the text
+    let trimmedText = text.startsWith(prompt) ? text.slice(prompt.length) : text;
+
     // Simple replacements for bold and italic
-    let formattedText = text
+    let formattedText = trimmedText
         .replace(/_([^_]+)_/g, '<i>$1</i>') // Italics with _text_
         .replace(/\*([^*]+)\*/g, '<b>$1</b>') // Bold with *text*
         .replace(/\n/g, '<br>'); // New lines to <br>
