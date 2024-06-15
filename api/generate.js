@@ -20,7 +20,19 @@ module.exports = async (req, res) => {
                 'Authorization': `Bearer ${API_KEY}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ inputs: prompt })
+            body: JSON.stringify({
+                inputs: prompt,
+                parameters: {
+                    //'max_length': 1000, // Set the maximum length to 1000
+                    'max_new_tokens': 250, // Adjust as needed - (Default: None). Int (0-250)
+                    'temperature': 0.7, // Adjust as needed - (Default: 1.0). Float (0.0-100.0)
+                    'max_time': 60, // Adjust as needed - (Default: None). Float (0-120.0)
+                },
+                'options': {
+                    'use_cache': true,
+                    'wait_for_model': true // Ensure the model waits to return a response until it's ready
+                }
+            })
         });
 
         if (!response.ok) {
