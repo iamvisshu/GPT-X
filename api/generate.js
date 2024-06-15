@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 const HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models";
 
-const MODEL = "openai-community/gpt2-large"; // You can replace this with any other model
+const MODEL = "mistralai/Mistral-7B-Instruct-v0.2"; // You can replace this with any other model
 
 module.exports = async (req, res) => {
     const API_KEY = process.env.HUGGINGFACE_API_KEY;
