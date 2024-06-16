@@ -3,17 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to the GPT-X, a powerful AI chatbot created & designed by of Vishal Vishwakarma (@iamvisshu)">
+    <meta name="author" content="@iamvisshu">
     <title>GPT-X</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="assets/imgs/apple-touch-icon.png">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Used for send button -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
-    <div class="chat-container">
-        <h1>GPT-X</h1>
-        <div class="chat-box" id="chat-box"></div>
-        <textarea id="prompt" rows="4" placeholder="Type your prompt here..."></textarea>
-        <button onclick="generateResponse()">Generate Response</button>
-    </div>
-
-    <script src="js/script.js"></script>
+<header>
+    <h1>GPT-X</h1>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+</header>
+<div class="chat-container">
+    <div class="chat-box" id="chat-box"></div>
+    <textarea id="prompt" rows="2" placeholder="Ask me anything..."></textarea>
+    <button onclick="generateResponse()">Send <i class="fas fa-arrow-right"></i></button>
+</div>
+<footer>
+    <p>© 2024 GPT-X. All rights reserved.</p>
+</footer>
+<script src="js/script.js"></script>
 </body>
 </html>

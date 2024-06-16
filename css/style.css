@@ -5,8 +5,56 @@ body {
     background-color: #f4f4f4;
 }
 
+header {
+    background-color: #fff;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+}
+
+header .nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+header .nav-links li {
+    margin: 0 15px;
+}
+
+header .nav-links li a {
+    text-decoration: none;
+    color: #333;
+}
+
+header .nav-links.active {
+    display: flex;
+}
+
+header .menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+header .menu-toggle i {
+    font-size: 24px;
+}
+
 .chat-container {
-    max-width: 400px; /* Adjust maximum width for mobile */
+    max-width: 400px;
     margin: 50px auto;
     background-color: #fff;
     border-radius: 8px;
@@ -62,13 +110,40 @@ button {
     }
 
     textarea {
-        width: calc(100% - 20px); /* Adjusted width for smaller screens */
+        width: calc(100% - 20px);
+    }
+
+    header .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    header .nav-links.active {
+        display: flex;
+    }
+
+    header .nav-links li {
+        margin: 10px 0;
+    }
+
+    header .menu-toggle {
+        display: block;
     }
 }
 
-/* For desktop */
-@media only screen and (min-width: 601px) {
-    .chat-container {
-        max-width: 800px; /* Adjust maximum width for desktop */
-    }
+/* Footer styles */
+footer {
+    background-color: #d3d3d3; /* Light grey color */
+    padding: 10px; /* Reduced padding */
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+footer p {
+    margin: 0;
+    color: #666;
 }
