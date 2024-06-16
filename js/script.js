@@ -1,9 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
+    const sideMenu = document.querySelector('.side-menu');
     const navLinks = document.querySelector('.nav-links');
 
     menuToggle.addEventListener('click', function() {
+        sideMenu.classList.toggle('active');
+        // Toggle active class for nav links too
         navLinks.classList.toggle('active');
+    });
+
+    // Close side menu when clicking outside of it
+    document.addEventListener('click', function(event) {
+        const target = event.target;
+        if (!sideMenu.contains(target) && !menuToggle.contains(target)) {
+            sideMenu.classList.remove('active');
+            // Remove active class from nav links when clicking outside
+            navLinks.classList.remove('active');
+        }
     });
 });
 
