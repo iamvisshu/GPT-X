@@ -3,6 +3,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    min-height: 100vh;
 }
 
 header {
@@ -64,7 +65,6 @@ header .menu-toggle i {
 }
 
 .chat-container {
-    max-width: 400px;
     margin: 50px auto;
     background-color: #fff;
     border-radius: 8px;
@@ -82,7 +82,7 @@ header .menu-toggle i {
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 5px;
-    max-width: 70%;
+    max-width: 90%;
 }
 
 .chat-message.bot {
