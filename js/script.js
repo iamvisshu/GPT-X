@@ -25,6 +25,9 @@ async function generateResponse() {
     if (prompt !== '') {
         appendMessage('user', prompt);
         document.getElementById('prompt').value = ''; // Clear the text area after sending the prompt
+
+        showTypingAnimation(); // Show typing animation before making API call
+
         try {
             const response = await fetch('/api/generate', {
                 method: 'POST',
@@ -39,12 +42,13 @@ async function generateResponse() {
             }
 
             const data = await response.json();
-            console.log("Script Response:", JSON.stringify(data)); // debug loggings
-            console.log("Script Response length:", JSON.stringify(data).length); // debug loggings
+            hideTypingAnimation(); // Hide typing animation upon receiving response
+
             const generatedText = formatResponse(data[0].generated_text, prompt);
             appendMessage('bot', generatedText);
         } catch (error) {
             console.error('Error:', error);
+            hideTypingAnimation(); // Hide typing animation on error
             appendMessage('bot', 'Sorry, something went wrong.');
         }
     }
@@ -73,4 +77,22 @@ function appendMessage(sender, message) {
     chatBox.appendChild(messageElement);
     // Scroll to bottom
     chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+
+function showTypingAnimation() {
+    const chatBox = document.getElementById('chat-box');
+    const typingIndicator = document.createElement('div');
+    typingIndicator.classList.add('chat-message', 'bot', 'typing');
+    typingIndicator.innerHTML = 'Typing<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
+    chatBox.appendChild(typingIndicator);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function hideTypingAnimation() {
+    const chatBox = document.getElementById('chat-box');
+    const typingIndicator = chatBox.querySelector('.chat-message.bot.typing');
+    if (typingIndicator) {
+        chatBox.removeChild(typingIndicator);
+    }
 }
