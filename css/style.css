@@ -53,6 +53,16 @@ header .menu-toggle i {
     font-size: 24px;
 }
 
+.header-logo-text {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
+    margin-right: 10px;
+}
+
 .chat-container {
     max-width: 400px;
     margin: 50px auto;
