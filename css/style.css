@@ -161,22 +161,10 @@ button {
     header .menu-toggle {
         display: block;
     }
-}
 
-
-/* Footer styles */
-footer {
-    background-color: #d3d3d3; /* Light grey color */
-    padding: 10px; /* Reduced padding */
-    text-align: center;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-}
-
-footer p {
-    margin: 0;
-    color: #666;
+    footer p {
+        font-size: 10px;
+    }
 }
 
 /*Side menu - For mobile responsiveness */
@@ -196,4 +184,20 @@ footer p {
     .side-menu.active {
         right: 0;
     }
+}
+
+/* Footer styles */
+footer {
+    background-color: #d3d3d3; /* Light grey color */
+    padding: 10px; /* Reduced padding */
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+footer p {
+    margin: 0;
+    color: #666;
+    white-space: nowrap;
 }
