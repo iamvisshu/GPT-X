@@ -142,6 +142,25 @@ button {
         width: auto; /* Let button take its content width */
         margin-bottom: 0;
     }
+
+    header .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    header .nav-links.active {
+        display: flex;
+    }
+
+    header .nav-links li {
+        margin: 10px 0;
+    }
+
+    header .menu-toggle {
+        display: block;
+    }
 }
 
 
