@@ -163,7 +163,8 @@ button {
     }
 
     footer p {
-        font-size: 10px;
+        font-size: 12px;
+        text-align: center;
     }
 }
 
@@ -200,4 +201,5 @@ footer p {
     margin: 0;
     color: #666;
     white-space: nowrap;
+    text-align: center;
 }
