@@ -70,6 +70,32 @@ header .menu-toggle i {
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    max-width: 600px; /* Add a max-width for better layout */
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust gap as needed */
+}
+
+textarea {
+    flex: 1; /* Allow the textarea to take up available space */
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    resize: none; /* Disable resizing for better layout */
+}
+
+button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    margin-bottom: 10px; /* Ensure buttons align with textarea */
 }
 
 .chat-box {
@@ -96,52 +122,28 @@ header .menu-toggle i {
     align-self: flex-end;
 }
 
-textarea {
-    width: calc(100% - 80px);
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-}
-
-button {
-    padding: 8px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-}
-
 /* For mobile responsiveness */
 @media only screen and (max-width: 600px) {
     .chat-container {
         max-width: 90%;
     }
 
+    .input-container {
+        flex-direction: row; /* Change to row for smaller screens */
+        gap: 5px;
+    }
+
     textarea {
-        width: calc(100% - 20px);
+        flex: 1; /* Allow the textarea to take up available space */
+        margin-bottom: 0;
     }
 
-    header .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-    }
-
-    header .nav-links.active {
-        display: flex;
-    }
-
-    header .nav-links li {
-        margin: 10px 0;
-    }
-
-    header .menu-toggle {
-        display: block;
+    button {
+        width: auto; /* Let button take its content width */
+        margin-bottom: 0;
     }
 }
+
 
 /* Footer styles */
 footer {
@@ -176,4 +178,3 @@ footer p {
         right: 0;
     }
 }
-
