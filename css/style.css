@@ -175,8 +175,8 @@ button {
         right: -250px;
         width: 250px;
         height: 100%;
-        background-color: #fff;
-        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        background-color: #EAEAEA;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
         z-index: 1000;
         transition: right 0.3s ease;
     }
