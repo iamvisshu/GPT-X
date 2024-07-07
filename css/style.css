@@ -99,7 +99,6 @@ button {
 }
 
 .chat-box {
-    max-height: 300px;
     overflow-y: auto;
     margin-bottom: 10px;
 }
