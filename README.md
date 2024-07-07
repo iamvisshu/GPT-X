@@ -18,9 +18,10 @@ GPT-X : Leverage Public LLMs for Engaging Conversations. This is a project that 
 
 ⭐**About GPT-X 💬**
 
-  * This is a project that demonstrates how to create a chat interface using Hugging Face models. This project uses open source LLM's API in backend and communicates thru its UI chat interface to send and recieve data.
+  * This is a project that demonstrates how to create a chat interface using Hugging Face models. This project uses open source LLM's API in backend and communicates thru its UI chat interface to send and receive data.
   * Project Structure - Refer below ⏬ image.
-   ![Project Structure]
+    ![image](https://github.com/iamvisshu/GPT-X/assets/53083619/0d5185c2-804d-4ff8-8f07-a053ac006a36)
+
  
 ---
 
