@@ -2,16 +2,24 @@ const fetch = require('node-fetch');
 
 const HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models";
 
-const MODEL = "mistralai/Mistral-7B-Instruct-v0.2"; // You can replace this with any other model
+//const MODEL = "mistralai/Mistral-7B-Instruct-v0.2"; // You can replace this with any other model
+const MODEL = "mistralai/Mistral-7B-Instruct-v0.3";
 
 module.exports = async (req, res) => {
     const API_KEY = process.env.HUGGINGFACE_API_KEY;
+    if (!API_KEY) {
+        return res.status(500).json({ error: "Missing Hugging Face API key" });
+    }
 
     if (req.method !== 'POST') {
         return res.status(405).json({ message: 'Only POST requests are allowed' });
     }
 
     const { prompt } = req.body;
+    if (!prompt) {
+        return res.status(400).json({ error: "Missing prompt in request body" });
+    }
+
 
     try {
         const response = await fetch(`${HUGGINGFACE_API_URL}/${MODEL}`, {
@@ -36,14 +44,22 @@ module.exports = async (req, res) => {
         });
 
         if (!response.ok) {
-            throw new Error(`Error: ${response.statusText}`);
+            const errText = await response.text();
+            console.error("Hugging Face API Error:", errText);
+            throw new Error(`Hugging Face API error ${response.status}: ${errText}`);
         }
+
 
         const data = await response.json();
         console.log("Response data:", JSON.stringify(data)); // Debug logging
         console.log("Response length:", JSON.stringify(data).length); // Debug logging
+        if (!Array.isArray(data) || !data[0]?.generated_text) {
+            return res.status(500).json({ error: "Unexpected response format from Hugging Face." });
+        }
         res.status(200).json(data);
-    } catch (error) {
+    }
+    catch (error)
+    {
         res.status(500).json({ error: error.message });
     }
 };
