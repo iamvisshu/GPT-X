@@ -1,5 +1,6 @@
 const express = require('express');
 const fetch = require('node-fetch');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
@@ -8,6 +9,7 @@ const port = process.env.PORT || 3000;
 const HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models";
 const MODEL = "mistralai/Mistral-7B-Instruct-v0.3"; // You can change this as needed
 
+app.use(cors());
 app.use(express.json());
 
 // ✅ Health check endpoint for Render to monitor the service
