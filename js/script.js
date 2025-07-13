@@ -29,7 +29,7 @@ async function generateResponse() {
         showTypingAnimation(); // Show typing animation before making API call
 
         try {
-            const response = await fetch('https://gpt-x.onrender.com/api/generate', {
+            const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
