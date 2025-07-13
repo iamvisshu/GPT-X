@@ -7,7 +7,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models";
-const MODEL = "mistralai/Mistral-7B-Instruct-v0.3"; // You can change this as needed
+const MODEL = "tiiuae/falcon-7b-instruct";
+//const MODEL = "mistralai/Mistral-7B-Instruct-v0.3"; // You can change this as needed
 
 app.use(cors());
 app.use(express.json());
@@ -67,7 +68,7 @@ app.post('/api/generate', async (req, res) => {
     res.status(200).json(data);
   } catch (error) {
     console.error("Server Error:", error.message);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({error: error.message || "Something went wrong. Please try again later."});
   }
 });
 
