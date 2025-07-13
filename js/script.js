@@ -108,9 +108,26 @@ function appendMessage(sender, message) {
 
 function showTypingAnimation() {
     const chatBox = document.getElementById('chat-box');
+
     const typingIndicator = document.createElement('div');
     typingIndicator.classList.add('chat-message', 'bot', 'typing');
-    typingIndicator.innerHTML = 'Typing<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
+
+    // Avatar
+    const avatar = document.createElement('div');
+    avatar.classList.add('avatar');
+    avatar.innerHTML = '🤖';
+
+    // Animated typing dots
+    const typingDots = document.createElement('div');
+    typingDots.classList.add('message-content', 'typing-dots');
+    typingDots.innerHTML = `
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    `;
+
+    typingIndicator.appendChild(avatar);
+    typingIndicator.appendChild(typingDots);
     chatBox.appendChild(typingIndicator);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
