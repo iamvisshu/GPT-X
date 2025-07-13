@@ -86,18 +86,25 @@ function formatResponse(text, prompt) {
 
 
 function appendMessage(sender, message) {
-    console.log("Message:", message); // debug logging
     const chatBox = document.getElementById('chat-box');
     const messageElement = document.createElement('div');
     messageElement.classList.add('chat-message', sender);
-    const messageSpan = document.createElement('span');
-    messageSpan.innerHTML = message; // Used innerHTML to allow formatting
-    messageElement.appendChild(messageSpan);
+
+    const avatar = document.createElement('div');
+    avatar.classList.add('avatar');
+
+    // 🧠 Set emoji or avatar depending on sender
+    avatar.innerHTML = sender === 'user' ? '👤' : '🤖';
+
+    const messageContent = document.createElement('div');
+    messageContent.classList.add('message-content');
+    messageContent.innerHTML = message; // Use innerHTML for formatted text/code
+
+    messageElement.appendChild(avatar);
+    messageElement.appendChild(messageContent);
     chatBox.appendChild(messageElement);
-    // Scroll to bottom
     chatBox.scrollTop = chatBox.scrollHeight;
 }
-
 
 function showTypingAnimation() {
     const chatBox = document.getElementById('chat-box');
