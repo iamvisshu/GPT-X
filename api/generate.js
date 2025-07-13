@@ -7,8 +7,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models";
-const MODEL = "tiiuae/falcon-7b-instruct";
+//const MODEL = "tiiuae/falcon-7b-instruct";
 //const MODEL = "mistralai/Mistral-7B-Instruct-v0.3"; // You can change this as needed
+const MODEL = "openai-community/gpt2";
 
 app.use(cors());
 app.use(express.json());
