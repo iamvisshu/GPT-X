@@ -51,20 +51,39 @@ async function generateResponse() {
             hideTypingAnimation(); // Hide typing animation on error
             appendMessage('bot', 'Sorry, something went wrong.');
         }
+
+        //this code is to simulate the response.
+        /*try {
+            hideTypingAnimation(); // Simulate end of "thinking"
+
+            //Simulated fake response for testing
+            const fakeResponse =
+              "Here's a simple Java method to reverse a string:\n\n" +
+              "```java\n" +
+              "public static String reverse(String input) {\n" +
+              "    return new StringBuilder(input).reverse().toString();\n" +
+              "}\n" +
+              "```\n\n" +
+              "Let me know if you'd like this explained line-by-line.";
+
+            const generatedText = formatResponse(fakeResponse, prompt);
+            appendMessage('bot', generatedText);
+        } catch (error) {
+            console.error('Error:', error);
+            hideTypingAnimation(); // Hide typing animation on error
+            appendMessage('bot', 'Sorry, something went wrong.');
+        }*/
     }
 }
 
 function formatResponse(text, prompt) {
-    // Remove the prompt and any leading new lines from the beginning of the text
-    let trimmedText = text.startsWith(prompt) ? text.slice(prompt.length).trimStart() : text.trimStart();
+    const trimmed = text.startsWith(prompt)
+        ? text.slice(prompt.length).trimStart()
+        : text.trimStart();
 
-    // Simple replacements for bold and italic
-    let formattedText = trimmedText
-        .replace(/_([^_]+)_/g, '<i>$1</i>') // Italics with _text_
-        .replace(/\*([^*]+)\*/g, '<b>$1</b>') // Bold with *text*
-        .replace(/\n/g, '<br>'); // New lines to <br>
-    return formattedText;
+    return marked.parse(trimmed); // 👈 handles real markdown from Mistral
 }
+
 
 function appendMessage(sender, message) {
     console.log("Message:", message); // debug logging

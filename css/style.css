@@ -342,4 +342,18 @@ h3 {
     line-height: 1.6;
     color: #333;
 }
+
+/* Code block styling */
+pre code {
+    background-color: #1e1e1e;
+    color: #dcdcdc;
+    display: block;
+    padding: 1em;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, 'Courier New', monospace;
+    font-size: 0.9rem;
+    margin-top: 0.5em;
+}
+
 /* Projects CSS END*/
