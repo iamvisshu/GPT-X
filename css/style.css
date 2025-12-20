@@ -407,61 +407,162 @@ pre {
     width: 100%;
 }
 
+/* About Me specific centering */
+.about-me {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about-me-content {
+    width: 100%;
+    max-width: 800px;
+}
+
+.about-me .card {
+    display: block;
+    /* Changed from flex to block */
+    text-align: left;
+    /* Keep text left-aligned */
+}
+
+/* Projects specific centering */
+.projects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.projects-content {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.projects-content h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+    width: 100%;
+}
+
 .card,
 .project {
     background: white;
     padding: 40px;
     border-radius: 20px;
     border: 1px solid var(--border-color);
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+    /* Consistent spacing */
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.project:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Profile Picture - Circular with Blue Outline */
 .profile-pic {
-    width: 140px;
-    height: 140px;
-    border-radius: 20px;
-    margin-bottom: 24px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    /* Circular */
+    border: 4px solid var(--accent-color);
+    /* Blue outline */
+    margin: 0 auto 32px;
+    /* Centered with bottom margin */
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    /* Subtle blue shadow */
+}
+
+.card-content {
+    width: 100%;
 }
 
 .card-content h2 {
-    font-size: 1.75rem;
-    margin-bottom: 12px;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #000000;
+    /* Black text */
 }
 
 .card-content h3 {
-    font-size: 1.25rem;
-    margin: 24px 0 12px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 32px 0 16px;
     color: var(--accent-color);
+    text-align: left;
 }
 
 .card-content p,
 .card-content ul li {
-    color: var(--text-secondary);
-    margin-bottom: 10px;
+    color: #1a1a1a;
+    /* Dark black for readability */
+    margin-bottom: 12px;
+    line-height: 1.7;
+    text-align: left;
+}
+
+.card-content>p:first-of-type {
+    font-size: 1.15rem;
+    color: #4b5563;
+    /* Subtitle color */
+    margin-bottom: 8px;
+}
+
+.card-content p strong {
+    color: #000000;
+    /* Black for labels */
+    font-weight: 600;
 }
 
 .card-content ul {
     list-style: none;
     padding-left: 0;
+    text-align: left;
 }
 
 .card-content ul li::before {
     content: "→ ";
     color: var(--accent-color);
     font-weight: bold;
+    margin-right: 8px;
 }
 
 .project h3 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    font-weight: 700;
     margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.project p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
 }
 
 .project a {
     display: inline-block;
-    margin-top: 12px;
+    margin-top: 8px;
     color: var(--accent-color);
     text-decoration: none;
     font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.project a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
 }
 
 .main-footer {
@@ -537,5 +638,42 @@ pre {
     .card,
     .project {
         padding: 24px;
+        margin-bottom: 20px;
+        /* Consistent spacing on mobile */
+    }
+
+    .about-me,
+    .projects {
+        padding: 40px 16px;
+    }
+
+    /* Mobile About Me styles */
+    .profile-pic {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 24px;
+    }
+
+    .card-content h2 {
+        font-size: 1.75rem;
+    }
+
+    .card-content h3 {
+        font-size: 1.25rem;
+        margin: 24px 0 12px;
+    }
+
+    .card-content>p:first-of-type {
+        font-size: 1.05rem;
+    }
+
+    /* Mobile Projects styles */
+    .projects-content h2 {
+        font-size: 1.75rem;
+        margin-bottom: 32px;
+    }
+
+    .project h3 {
+        font-size: 1.3rem;
     }
 }
