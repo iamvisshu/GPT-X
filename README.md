@@ -33,15 +33,27 @@ GPT-X : Leverage Public LLMs for Engaging Conversations. This is a project that 
 
 ---
 
-🔧**Installation:**
+🔧**Installation & Local Development:**
 
 * Clone this repository or download it as zip.
-* Unzip and use it.
+* Install dependencies:
+  ```bash
+  npm install
+  ```
+* Install Vercel CLI globally:
+  ```bash
+  npm install -g vercel
+  ```
+* Run the project locally:
+  ```bash
+  npx vercel dev
+  ```
+
 ---
 
 ☑️ **Usage:**
 
-* Launch index.html in browser.
+* Once running via `vercel dev`, open `http://localhost:3000` in your browser.
 * Enter your prompt/query/question.
 * Wait to get response.
 * Refer below ⏬ images.
