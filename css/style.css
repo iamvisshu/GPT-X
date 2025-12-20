@@ -210,38 +210,26 @@ main {
     color: #1a1a1a;
 }
 
-/* --- Messages (Icon Alignment Fix) --- */
+/* --- Messages (No Avatars, Consistent Width) --- */
 .chat-message {
     display: flex;
-    gap: 16px;
     width: 100%;
-    align-items: flex-start;
+    margin-bottom: 16px;
 }
 
-/* User messages: right-aligned with icon on RIGHT */
+/* User messages: right-aligned */
 .chat-message.user {
     justify-content: flex-end;
-    flex-direction: row-reverse;
-    /* Icon goes to the right */
 }
 
-/* Bot messages: left-aligned with icon on LEFT */
+/* Bot messages: left-aligned */
 .chat-message.bot {
     justify-content: flex-start;
-    flex-direction: row;
-    /* Icon stays on the left */
 }
 
+/* Hide avatars completely */
 .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
-    background: #e2e8f0;
-    flex-shrink: 0;
+    display: none !important;
 }
 
 .message-content {
@@ -249,8 +237,11 @@ main {
     border-radius: 18px;
     font-size: 1.05rem;
     line-height: 1.6;
-    max-width: 75%;
+    max-width: 700px;
+    /* Consistent max-width for both */
+    width: fit-content;
     word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .user .message-content {
@@ -265,6 +256,46 @@ main {
     border-bottom-left-radius: 4px;
     border: 1px solid var(--border-color);
 }
+
+/* Typing indicator animation */
+.typing-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 20px !important;
+}
+
+.typing-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--text-secondary);
+    animation: typing 1.4s infinite;
+}
+
+.typing-dots .dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dots .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+
+    0%,
+    60%,
+    100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+
+    30% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 
 /* --- Input Area --- */
 .input-area {
@@ -461,27 +492,33 @@ pre {
     }
 
     .chat-box {
-        padding: 24px 12px 40px;
-        /* Reduced left/right padding */
-    }
-
-    /* Mobile Message Spacing Fix */
-    .chat-message {
-        gap: 12px;
-        /* Reduced gap */
+        padding: 24px 16px 40px;
+        /* Consistent padding */
+        max-width: 100%;
+        /* Prevent overflow */
+        overflow-x: hidden;
+        /* Hide horizontal scroll */
     }
 
     .message-content {
-        max-width: 85%;
-        /* More width for content */
+        max-width: 90%;
+        /* Responsive width */
         padding: 14px 18px;
         font-size: 1rem;
+        /* Ensure content doesn't overflow */
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
 
-    .avatar {
-        width: 36px;
-        height: 36px;
-        font-size: 1.1rem;
+    /* Ensure code blocks don't cause overflow */
+    .code-block-container {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    pre {
+        max-width: 100%;
+        overflow-x: auto !important;
     }
 
     .input-area {

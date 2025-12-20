@@ -112,10 +112,6 @@ function appendMessage(sender, message) {
     const messageElement = document.createElement('div');
     messageElement.classList.add('chat-message', sender);
 
-    const avatar = document.createElement('div');
-    avatar.classList.add('avatar');
-    avatar.innerHTML = sender === 'user' ? '👤' : '🤖';
-
     const messageContent = document.createElement('div');
     messageContent.classList.add('message-content');
 
@@ -127,7 +123,6 @@ function appendMessage(sender, message) {
         messageContent.textContent = message;
     }
 
-    messageElement.appendChild(avatar);
     messageElement.appendChild(messageContent);
     chatBox.appendChild(messageElement);
 
@@ -205,7 +200,6 @@ function showTypingAnimation() {
     typingIndicator.id = 'typing-indicator';
 
     typingIndicator.innerHTML = `
-        <div class="avatar">🤖</div>
         <div class="message-content typing-dots">
             <span class="dot"></span>
             <span class="dot"></span>
