@@ -1,141 +1,226 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const menuToggle = document.querySelector('.menu-toggle');
-    const sideMenu = document.querySelector('.side-menu');
-    const navLinks = document.querySelector('.nav-links');
+    const sideMenu = document.getElementById('side-menu');
+    const closeMenu = document.getElementById('close-menu');
+    const promptArea = document.getElementById('prompt');
 
-    menuToggle.addEventListener('click', function() {
-        sideMenu.classList.toggle('active');
-        // Toggle active class for nav links too
-        navLinks.classList.toggle('active');
-    });
+    // --- Sidebar Logic ---
+    if (menuToggle && sideMenu) {
+        menuToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            sideMenu.classList.add('active');
+        });
+    }
 
-    // Close side menu when clicking outside of it
-    document.addEventListener('click', function(event) {
-        const target = event.target;
-        if (!sideMenu.contains(target) && !menuToggle.contains(target)) {
+    if (closeMenu && sideMenu) {
+        closeMenu.addEventListener('click', function () {
             sideMenu.classList.remove('active');
-            // Remove active class from nav links when clicking outside
-            navLinks.classList.remove('active');
+        });
+    }
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function (event) {
+        if (sideMenu && sideMenu.classList.contains('active')) {
+            if (!sideMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                sideMenu.classList.remove('active');
+            }
         }
     });
+
+    // --- Input Handling ---
+    if (promptArea) {
+        // Enter to Send, Shift+Enter for New Line
+        promptArea.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                generateResponse();
+            }
+        });
+
+        // Auto-resize Textarea as user types
+        promptArea.addEventListener('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    }
 });
 
+/**
+ * Main function to generate AI response
+ */
 async function generateResponse() {
-    const prompt = document.getElementById('prompt').value.trim();
-    if (prompt !== '') {
-        appendMessage('user', prompt);
-        document.getElementById('prompt').value = ''; // Clear the text area after sending the prompt
+    const promptInput = document.getElementById('prompt');
+    if (!promptInput) return;
 
-        showTypingAnimation(); // Show typing animation before making API call
+    const prompt = promptInput.value.trim();
+
+    if (prompt !== '') {
+        // Clear welcome screen on first interaction
+        const welcome = document.querySelector('.welcome-screen');
+        if (welcome) welcome.remove();
+
+        appendMessage('user', prompt);
+
+        // Reset input state
+        promptInput.value = '';
+        promptInput.style.height = 'auto';
+
+        showTypingAnimation();
 
         try {
             const response = await fetch('/api/generate', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prompt })
             });
 
-            if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
-            }
+            if (!response.ok) throw new Error(`Server returned ${response.status}`);
 
             const data = await response.json();
-            hideTypingAnimation(); // Hide typing animation upon receiving response
+            hideTypingAnimation();
 
             const generatedText = formatResponse(data[0].generated_text, prompt);
             appendMessage('bot', generatedText);
+
         } catch (error) {
-            console.error('Error:', error);
-            hideTypingAnimation(); // Hide typing animation on error
-            appendMessage('bot', 'Sorry, something went wrong.');
+            console.error('Chat Error:', error);
+            hideTypingAnimation();
+            appendMessage('bot', '🤖 Sorry, something went wrong. Let\'s try that again.');
         }
-
-        //this code is to simulate the response.
-        /*try {
-            hideTypingAnimation(); // Simulate end of "thinking"
-
-            //Simulated fake response for testing
-            const fakeResponse =
-              "Here's a simple Java method to reverse a string:\n\n" +
-              "```java\n" +
-              "public static String reverse(String input) {\n" +
-              "    return new StringBuilder(input).reverse().toString();\n" +
-              "}\n" +
-              "```\n\n" +
-              "Let me know if you'd like this explained line-by-line.";
-
-            const generatedText = formatResponse(fakeResponse, prompt);
-            appendMessage('bot', generatedText);
-        } catch (error) {
-            console.error('Error:', error);
-            hideTypingAnimation(); // Hide typing animation on error
-            appendMessage('bot', 'Sorry, something went wrong.');
-        }*/
     }
 }
 
+/**
+ * Strips prompt from response if model repeats it (common in some LLMs)
+ */
 function formatResponse(text, prompt) {
     const trimmed = text.startsWith(prompt)
         ? text.slice(prompt.length).trimStart()
         : text.trimStart();
 
-    return marked.parse(trimmed); // 👈 handles real markdown from Mistral
+    // Convert Markdown to HTML using marked.js
+    return marked.parse(trimmed);
 }
 
-
+/**
+ * Appends a message bubble to the chat history
+ */
 function appendMessage(sender, message) {
     const chatBox = document.getElementById('chat-box');
+    if (!chatBox) return;
+
     const messageElement = document.createElement('div');
     messageElement.classList.add('chat-message', sender);
 
     const avatar = document.createElement('div');
     avatar.classList.add('avatar');
-
-    // 🧠 Set emoji or avatar depending on sender
     avatar.innerHTML = sender === 'user' ? '👤' : '🤖';
 
     const messageContent = document.createElement('div');
     messageContent.classList.add('message-content');
-    messageContent.innerHTML = message; // Use innerHTML for formatted text/code
+
+    if (sender === 'bot') {
+        messageContent.innerHTML = message;
+        // Apply syntax highlighting to code blocks
+        processCodeBlocks(messageContent);
+    } else {
+        messageContent.textContent = message;
+    }
 
     messageElement.appendChild(avatar);
     messageElement.appendChild(messageContent);
     chatBox.appendChild(messageElement);
-    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // Smooth scroll to the latest message
+    chatBox.scrollTo({
+        top: chatBox.scrollHeight,
+        behavior: 'smooth'
+    });
 }
 
+/**
+ * Detects code blocks and adds "Copy" buttons + syntax highlighting
+ */
+function processCodeBlocks(container) {
+    const blocks = container.querySelectorAll('pre');
+    blocks.forEach((block) => {
+        const codeElement = block.querySelector('code');
+        if (!codeElement) return;
+
+        // Extract language from class (e.g., 'language-javascript')
+        const language = (codeElement.className.match(/language-(\w+)/) || [, 'code'])[1];
+
+        // Wrap for custom styling
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('code-block-container');
+
+        const header = document.createElement('div');
+        header.classList.add('code-header');
+        header.innerHTML = `
+            <span>${language}</span>
+            <button class="copy-btn" onclick="copyCode(this)">
+                <i class="far fa-copy"></i> Copy
+            </button>
+        `;
+
+        block.parentNode.insertBefore(wrapper, block);
+        wrapper.appendChild(header);
+        wrapper.appendChild(block);
+
+        // Apply Highlight.js colors
+        if (typeof hljs !== 'undefined') {
+            hljs.highlightElement(codeElement);
+        }
+    });
+}
+
+/**
+ * Clipboard functionality for code blocks
+ */
+function copyCode(button) {
+    const container = button.closest('.code-block-container');
+    const code = container.querySelector('code').innerText;
+
+    navigator.clipboard.writeText(code).then(() => {
+        const originalHTML = button.innerHTML;
+        button.innerHTML = `<i class="fas fa-check"></i> Copied!`;
+        button.style.color = '#4ade80'; // Success green
+
+        setTimeout(() => {
+            button.innerHTML = originalHTML;
+            button.style.color = '';
+        }, 2000);
+    }).catch(err => {
+        console.error('Copy failed:', err);
+    });
+}
+
+/**
+ * Animated bot typing state
+ */
 function showTypingAnimation() {
     const chatBox = document.getElementById('chat-box');
-
     const typingIndicator = document.createElement('div');
-    typingIndicator.classList.add('chat-message', 'bot', 'typing');
+    typingIndicator.classList.add('chat-message', 'bot');
+    typingIndicator.id = 'typing-indicator';
 
-    // Avatar
-    const avatar = document.createElement('div');
-    avatar.classList.add('avatar');
-    avatar.innerHTML = '🤖';
-
-    // Animated typing dots
-    const typingDots = document.createElement('div');
-    typingDots.classList.add('message-content', 'typing-dots');
-    typingDots.innerHTML = `
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
+    typingIndicator.innerHTML = `
+        <div class="avatar">🤖</div>
+        <div class="message-content typing-dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
     `;
 
-    typingIndicator.appendChild(avatar);
-    typingIndicator.appendChild(typingDots);
     chatBox.appendChild(typingIndicator);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+/**
+ * Removes typing animation
+ */
 function hideTypingAnimation() {
-    const chatBox = document.getElementById('chat-box');
-    const typingIndicator = chatBox.querySelector('.chat-message.bot.typing');
-    if (typingIndicator) {
-        chatBox.removeChild(typingIndicator);
-    }
+    const indicator = document.getElementById('typing-indicator');
+    if (indicator) indicator.remove();
 }

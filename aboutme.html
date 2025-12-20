@@ -42,20 +42,33 @@
             <h1>GPT-X</h1>
         </div>
         <nav>
-            <!-- Add a side menu -->
-            <div class="side-menu">
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="aboutme.html">About Me</a></li>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="https://iamvisshu.github.io/" target="_blank">Contact</a></li>
-                </ul>
-            </div>
+            <ul class="nav-links desktop-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutme.html">About Me</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="https://iamvisshu.github.io/" target="_blank">Contact</a></li>
+            </ul>
             <div class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </div>
         </nav>
     </header>
+
+    <!-- Mobile Sidebar -->
+    <div class="side-menu" id="side-menu">
+        <div class="side-menu-header">
+            <span class="side-menu-title">Menu</span>
+            <div class="close-menu" id="close-menu">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <ul class="nav-links mobile-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="aboutme.html">About Me</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="https://iamvisshu.github.io/" target="_blank">Contact</a></li>
+        </ul>
+    </div>
     <main>
         <section class="about-me">
             <div class="about-me-content">
@@ -113,8 +126,8 @@
             </div>
         </section>
     </main>
-    <footer>
-        <p>Copyright © 2024 GPT-X. Created With ❤️ By <a href="https://github.com/iamvisshu"
+    <footer class="main-footer">
+        <p>Copyright © 2024-25 GPT-X. Created With ❤️ By <a href="https://github.com/iamvisshu"
                 target="_blank">@iamvisshu</a></p>
     </footer>
     <!-- Main Script -->
