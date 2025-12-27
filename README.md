@@ -56,17 +56,6 @@ GPT-X : Leverage Public LLMs for Engaging Conversations. This is a project that 
 * Once running via `vercel dev`, open `http://localhost:3000` in your browser.
 * Enter your prompt/query/question.
 * Wait to get response.
-* Refer below ⏬ images.
-* Entering Prompt.
-  ![Screenshot (3)](https://github.com/iamvisshu/GPT-X/assets/53083619/8e85631e-8f5c-4069-845c-0e7969559028)
-
-* After Reponse recieved.
-![Screenshot (5)](https://github.com/iamvisshu/GPT-X/assets/53083619/923e2bed-033f-4832-af79-95746abac74f)
-
-* Mobile view after entering prompt with response
-* ![image](https://github.com/iamvisshu/GPT-X/assets/53083619/95f03bfc-9e6e-4865-bde4-c2a2cbc8d5a2)
-* ![image](https://github.com/iamvisshu/GPT-X/assets/53083619/0e7b796c-2946-46ec-a4c7-a9dd3d2db138)
-
 
 ---
 
