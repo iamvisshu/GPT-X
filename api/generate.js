@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
       },
       method: "POST",
       body: JSON.stringify({ 
-        model: "deepseek-ai/DeepSeek-R1:novita",
+        model: "meta-llama/Llama-3.1-8B-Instruct:novita",
         messages: [
           { role: "user", content: prompt }
         ],
