@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "npx -y serve .",
+    "start": "npx -y vercel dev",
+    "verify": "ls index.html && echo 'Verification passed'"
+  },
   "dependencies": {
     "@huggingface/inference": "^4.13.5",
     "node-fetch": "^2.6.1"

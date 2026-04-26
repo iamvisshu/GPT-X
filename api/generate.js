@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
 
   try {
     const chatCompletion = await client.chatCompletion({
-      model: "google/gemma-2-9b-it",
+      model: "gemma-4-31B-it",
       messages: [
         {
           role: "user",
